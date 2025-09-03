@@ -5,10 +5,14 @@ let cycleCompleted=false
 let textPositionx=500
 let textPositiony=600
 let wordSize=15
-let butterflyPosx=100
-let butterflyPosy=100
-let butterflySize=40
 let butterflyColor=[]
+let butterflyDis=[]
+let pointStarx1=0
+let pointStarx2=0 
+let pointStarx3=0 
+let pointStarx4=0 
+let pointStarx5=0 
+
 
 
 function draw_one_frame(words, vocal, drum, bass, other, counter) {
@@ -17,11 +21,9 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   //let wordSize=map(vocal,0,100,50,100)
 let midx=canvasWidth/2
 let midy=canvasHeight/2
-
-  
-  
+ 
    // please use CSS safe fonts
-   textSize(26)
+  textSize(26)
   textFont('Papyrus');
   stroke('black')
 text('INU', 1220,660)
@@ -43,11 +45,6 @@ text('JC-T', 1200,700)
    cycleCompleted=true
    }
   }
-
-  
-  //draw circle
-  let xPos=600
-  let yPos=600
   let size=frameCount*0.6
   let insideSize=frameCount*0.5
   let innerSize=frameCount*0.3
@@ -78,12 +75,199 @@ for(let xPos=-200; xPos<1200;xPos++){
   }
 }
   }
+ //doing the point moving  
+let pointStar1=linePos=330
+let pointStar2=linePos+20
+let pointStar3=linePos+40
+let pointStar4=linePos+60
+let pointStar5=linePos+80
+let hue1
+let hue2
+let hue3
+let hue4
+let hue5
+let bri
+let sat
+
+hue1=map(bass,0,100,9,24)
+bri=map(other,0,100,80,100)
+sat=map(vocal,0,100,50,100)
+hue2=map(bass,0,100,40,100)
+hue3=map(bass,0,100,200,250)
+hue4=map(bass,0,100,280,320)
+hue5=map(bass,0,100,330,360)
+if (Tmap>10&&Tmap<40){
+ 
+  push()
+  colorMode(HSB)
+  
+  fill(hue1,sat,bri)
+  noStroke()
+  ellipse(pointStarx1,pointStar1,10,10)
+  pointStarx1=pointStarx1+10
+  pop()
+  if(pointStarx1>1280){pointStarx1=0}
+  if(pointStarx1>100){
+    push()
+    colorMode(HSB)
+    fill(hue2,sat,bri)
+    noStroke()
+    ellipse(pointStarx2,pointStar2,10,10)
+    pointStarx2=pointStarx2+10
+  pop()
+  if(pointStarx2>1280){pointStarx2=0}
+  if(pointStarx2>100){
+    push()
+    colorMode(HSB)
+    fill(hue3,sat,bri)
+    noStroke()
+    ellipse(pointStarx3,pointStar3,10,10)
+    pointStarx3=pointStarx3+10
+    pop()
+    if(pointStarx3>1280){pointStarx3=0}
+    if(pointStarx3>100){
+      push()
+      colorMode(HSB)
+      fill(hue4,sat,bri)
+      noStroke()
+      ellipse(pointStarx4,pointStar4,10,10)
+      pointStarx4=pointStarx4+10
+      pop()
+      if(pointStarx4>1280){pointStarx4=0}
+      if(pointStarx4>100){
+        push()
+        colorMode(HSB)
+        fill(hue5,sat,bri)
+        noStroke()
+        ellipse(pointStarx5,pointStar5,10,10)
+        pointStarx5=pointStarx5+10
+        pop()
+      }
+      if(pointStarx5>1280){
+        pointStarx5=0
+      }
+    }
+  }
+
+  }
+//lines appear  
+} if(Tmap>10&&Tmap<18){
+        hue1=map(bass,0,100,9,24)
+        bri=map(other,0,100,80,100)
+        sat=map(vocal,0,100,50,100)
+        hue2=map(bass,0,100,40,100)
+        hue3=map(bass,0,100,200,250)
+        hue4=map(bass,0,100,280,320)
+        hue5=map(bass,0,100,330,360)
+
+        let linePos=330
+        push()
+        colorMode(HSB)
+        stroke(hue1,sat,bri)
+        strokeWeight(1)
+        line(0,linePos,1280,linePos)
+        stroke(hue2,sat,bri)
+        line(0,linePos+20,1280,linePos+20)
+        stroke(hue3,sat,bri)
+        line(0,linePos+40,1280,linePos+40)
+        stroke(hue4,sat,bri)
+        line(0,linePos+60,1280,linePos+60)
+        stroke(hue5,sat,bri)
+        line(0,linePos+80,1280,linePos+80)
+        pop()
+        
+}
+if(Tmap<10){
+        hue1=map(bass,0,100,9,24)
+        bri=map(other,0,100,80,100)
+        sat=map(vocal,0,100,50,100)
+        hue2=map(bass,0,100,40,100)
+        hue3=map(bass,0,100,200,250)
+        hue4=map(bass,0,100,280,320)
+        hue5=map(bass,0,100,330,360)
+
+        let linePos=330
+        let controlPointx=460
+        let controlPointy=map(vocal,0,100,-40,40)
+        let controlPointy1=map(vocal,0,100,-40,20)
+
+        push()
+        colorMode(HSB)
+        stroke(hue1,sat,bri)
+        strokeWeight(1)
+         //first line
+        // line(0,linePos,420,linePos)
+        // line(620,linePos,1280,linePos)
+        beginShape()
+        vertex(0,linePos)
+        quadraticVertex(controlPointx,linePos-controlPointy,1280,linePos)
+        endShape()
 
 
-//draw butterfly
+        //second line
+        stroke(hue2,sat,bri)
+        beginShape()
+        vertex(0,linePos+20)
+        quadraticVertex(controlPointx+20,linePos+20-controlPointy1,1280,linePos+20)
+        endShape()
+       //third line
+        stroke(hue3,sat,bri)
+        beginShape()
+        vertex(0,linePos+40)
+        quadraticVertex(controlPointx+30,linePos+40-controlPointy,1280,linePos+40)
+        endShape()
 
-//for(i=4.5; i<20;i++){
 
+
+      //forth line  
+        stroke(hue4,sat,bri)
+        beginShape()
+        vertex(0,linePos+60)
+        quadraticVertex(controlPointx+50,linePos+60-controlPointy1,1280,linePos+60)
+        endShape()
+
+
+      //fifth line  
+        stroke(hue5,sat,bri)
+        beginShape()
+        vertex(0,linePos+80)
+        quadraticVertex(controlPointx,linePos+80-controlPointy,1280,linePos+80)
+        endShape()
+
+
+
+
+        pop()
+        
+
+
+}
+
+
+
+let d1=10
+let d2=14
+let d3=18
+let d4=25
+let d5=46
+butterflyDis=[d1,d2,d3,d4,d5]
+let randomDis=random(butterflyDis)
+if (Tmap<10){
+drawButterfly(map(vocal,0,100,10,700),randomDis+450,random(40,50))
+drawButterfly(map(drum,0,100,10,700),randomDis*3+450,random(60,70))
+drawButterfly(map(bass,0,100,10,700),randomDis*5+450,random(75,85))
+drawButterfly(map(vocal,0,100,10,700),randomDis,random(40,50))
+drawButterfly(map(drum,0,100,10,700),randomDis*3,random(60,70))
+drawButterfly(map(bass,0,100,10,700),randomDis*5,random(75,85))
+
+
+}
+
+
+}
+
+
+function drawButterfly(butterflyPosx,butterflyPosy,butterflySize){
 
 colorMode(RGB)
 let c1=color(245, 243, 144)
@@ -91,105 +275,35 @@ let c2=color(144, 210, 232)
 let c3=color(250, 192, 236)
 butterflyColor=[c1,c2,c3]
 let randomColor=random(butterflyColor)
-//
-if (Tmap=0){
+push()
+translate(butterflyPosx,butterflyPosy)
+angleMode(DEGREES)
+noStroke()
+fill(randomColor)
+ellipse(0,0,butterflySize/2,butterflySize);
+rotate(70)
+ellipse(0,0,butterflySize/2,butterflySize)
+pop()
+
+stroke(randomColor)
+strokeWeight(2)
+point(butterflyPosx+butterflySize/4,butterflyPosy-butterflySize/1.5)
+point(butterflyPosx+butterflySize/2,butterflyPosy-butterflySize/1.8)
+//point(butterflyPosx+13,butterflyPosy-butterflySize/2.2) control point
+
 beginShape()
-stroke(48, 54, 53)
-strokeWeight(1)
-let linePos=330
-vertex()
-line(0,linePos,1280,linePos)
-line(0,linePos+20,1280,linePos+20)
-line(0,linePos+40,1280,linePos+40)
-line(0,linePos+60,1280,linePos+60)
-line(0,linePos+80,1280,linePos+80)
+vertex(butterflyPosx+butterflySize/4-2,butterflyPosy-butterflySize/4)
+quadraticVertex(butterflyPosx+13,butterflyPosy-butterflySize/2.2,butterflyPosx+butterflySize/4,butterflyPosy-butterflySize/1.5)
 
 endShape()
-}
-// push()
-// angleMode(DEGREES)
-// noStroke()
-// fill(randomColor)
-
-// pop()
-// let outMap=map(bass,0,100,150,600)
-// push();
-// angleMode(DEGREES)
-// noStroke()
-// fill(randomColor)
-// translate(0,720)
-// ellipse(0,outMap,butterflySize/2,butterflySize);
-// rotate(45)
-// ellipse(0,outMap,butterflySize/2,butterflySize)
-
-
-// pop()
-
-
-//}
-// function drawButterfly(){
-//   push();
-// angleMode(DEGREES)
-// let outMap = map(bass, 0, 100, -100,-900)
-// ellipse(0,outMap,butterflySize/2,butterflySize);
-// rotate(45)
-// ellipse(0,outMap,butterflySize/2,butterflySize);
-
-
-
-// pop();}
-
-
-
-// // guitar
-// stroke(200,170,120)
-// strokeWeight(1)
-// noFill()
-
-// drawGuitarBody()
-// //drawGuitarNeck()
-// //drawGuitarHead()
-// //drawSoundHole()
-// function drawGuitarBody(){
-// line(0,midy,2*midx,midy)
-// line(midx,0,midx,midy*2)
-
-
-// push()
-//   stroke(139,90,43)
-//   strokeWeight(1)
-//   noFill()
-//   beginShape()
-//   vertex(-320,180)
-//   //up
-//   quadraticVertex(-320, 0, 0, 150);
-//   quadraticVertex(0, 0, 108, 0);
-//   Vertex(108, 0);
-//   Vertex(320, -170);
-//   //down
-  
-//   endShape(CLOSE);
-//   pop();
-//         }
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+beginShape()
+vertex(butterflyPosx+butterflySize/4-2,butterflyPosy-butterflySize/4)
+quadraticVertex(butterflyPosx+13,butterflyPosy-butterflySize/2.2,butterflyPosx+butterflySize/2,butterflyPosy-butterflySize/1.8)
+endShape()
 
 
 
 
 
 }
+

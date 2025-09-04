@@ -191,7 +191,7 @@ if (Tmap>18&&Tmap<45){
         hue5=map(bass,0,100,330,360)
             
         let linePos=330
-        lineFinshPoint=lineFinshPoint+5
+        lineFinshPoint=lineFinshPoint+6
         if(lineFinshPoint<=1280){
 
         push()
@@ -210,7 +210,7 @@ if (Tmap>18&&Tmap<45){
         pop()}
         
 }
-if(Tmap<15){
+if(Tmap<16){
         hue1=map(bass,0,100,9,24)
         bri=map(other,0,100,80,100)
         sat=map(vocal,0,100,50,100)
@@ -231,6 +231,7 @@ if(Tmap<15){
          //first line
         // line(0,linePos,420,linePos)
         // line(620,linePos,1280,linePos)
+        frameRate(8)
         beginShape()
         vertex(0,linePos)
         quadraticVertex(controlPointx,linePos-controlPointy,1280,linePos)
@@ -287,7 +288,7 @@ butterflyDis=[d1,d2,d3,d4,d5]
 let randomDis=random(butterflyDis)
 if (Tmap<15){
   push()
-  frameRate(12)
+  frameRate(10)
 drawButterfly(map(vocal,0,100,10,700),randomDis+450,random(40,50))
 drawButterfly(map(drum,0,100,10,700),randomDis*3+450,random(60,70))
 drawButterfly(map(bass,0,100,10,700),randomDis*5+450,random(75,85))
@@ -295,11 +296,31 @@ drawButterfly(map(vocal,0,100,10,700),randomDis,random(40,50))
 drawButterfly(map(drum,0,100,10,700),randomDis*3,random(60,70))
 drawButterfly(map(bass,0,100,10,700),randomDis*5,random(75,85))
   pop()
-drawLight()
-drawFlowers()
+
+push()
+frameRate(map(vocal,0,100,3,8))
+drawFlowers(random(100,1000),random(100,300),map(vocal,30,100,30,80),map(drum,0,100,4,10))
+drawFlowers(random(100,1000),random(450,700),map(vocal,30,100,50,80),map(drum,0,100,4,10))
+
+pop()
+
 drawHearts()
 drawClouds()
+if(rainCount<100){
+push()
+noStroke()
+fill(239, 245, 171,map(vocal,0,100,2,30))
+drawLights(map(bass,0,100,500,600),map(bass,0,100,300,800),0,0)
+if(rainCount<90){
+drawLights(map(vocal,0,100,700,800),map(vocal,0,100,300,800),150,0)}
+if(rainCount<50){
+drawLights(map(bass,0,100,1280,1400),map(vocal,0,100,700,800),650,0)}
+if(rainCount<30){
+drawLights(map(vocal,0,100,700,800),map(vocal,0,100,300,800),300,0)
+drawLights(map(bass,0,100,1280,1400),map(vocal,0,100,700,800),700,0)
+drawLights(map(vocal,0,100,1300,1400),map(vocal,0,100,400,680),550,0)}
 
+pop()}
 }
 
 
@@ -348,15 +369,50 @@ pop()
 }
 
 //draw light
-function drawLight(){
+function drawLights(lightPosx,lightPosy,startPointx,startPointy){
+
+// line(0,0,lightPosx,lightPosy)
+// rotate(30)
+// line(0,0,lightPosx,lightPosy)
+beginShape()
+curveVertex(startPointx,0)
+curveVertex(startPointx+50,0)
+curveVertex(startPointx,startPointy)
+curveVertex(lightPosx-100,lightPosy+100)
+curveVertex(lightPosx,lightPosy)
+curveVertex(lightPosx,lightPosy)
+endShape()
+
 
 }
 
 
 //draw flowers
-function drawFlowers(flowerPosx,flowerPosy,petalNum){}
+function drawFlowers(flowerPosx,flowerPosy,flowerSize,petalNum){
+  let fc1=color(221, 144, 240,120)
+  let fc2=color(150, 123, 224,120)
+  let fc3=color(247, 123, 104,100)
+  let fc4=color(223, 242, 111,120)
+  flowerColor=[fc1,fc2,fc3,fc4]
+  let randomFlowerColor=random(flowerColor)
+  
+push()
+
+translate(flowerPosx,flowerPosy)
+angleMode(DEGREES)
+stroke(randomFlowerColor)
+fill(randomFlowerColor)
+for(i=0;i<petalNum;i++){
+  ellipse(0,0,flowerSize,flowerSize/3)
+  rotate(360/petalNum)
+  ellipse(0,0,flowerSize/3,flowerSize/3)
+
+}
 
 
+pop()
+
+}
 
 // draw hearts
 function drawHearts(){}

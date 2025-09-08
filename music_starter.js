@@ -310,13 +310,13 @@ if(rainCount<100){
 push()
 noStroke()
 fill(239, 245, 171,map(vocal,0,100,2,30))
-drawLights(map(bass,0,100,500,600),map(bass,0,100,300,800),0,0)
+drawLights(map(bass,0,100,500,800),map(bass,0,100,700,800),0,0)
 if(rainCount<90){
-drawLights(map(vocal,0,100,700,800),map(vocal,0,100,300,800),150,0)}
+drawLights(map(vocal,0,100,700,800),map(vocal,0,100,700,800),150,0)}
 if(rainCount<50){
 drawLights(map(bass,0,100,1280,1400),map(vocal,0,100,700,800),650,0)}
 if(rainCount<30){
-drawLights(map(vocal,0,100,700,800),map(vocal,0,100,300,800),300,0)
+drawLights(map(vocal,0,100,700,800),map(vocal,0,100,700,800),300,0)
 drawLights(map(bass,0,100,1280,1400),map(vocal,0,100,700,800),700,0)
 drawLights(map(vocal,0,100,1300,1400),map(vocal,0,100,400,680),550,0)}
 

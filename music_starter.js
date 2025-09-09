@@ -15,12 +15,13 @@ let lineFinshPoint=0
 let isRaining=true
 let rainCount;
 let speedFactor
+var cloudPosx=0
 
 
 
 function draw_one_frame(words, vocal, drum, bass, other, counter) {
   //varibles
-frameRate(45)
+frameRate(30)
 speedFactor=noise(frameCount*0.01)
   let size=frameCount*0.6
   let insideSize=frameCount*0.5
@@ -131,7 +132,7 @@ sat3=map(pointStarx3,0,1280,0,100)
 sat4=map(pointStarx4,0,1280,0,100)
 sat5=map(pointStarx5,0,1280,0,100)
 bri=map(vocal,0,100,80,100)
-if (Tmap>30&&Tmap<45){
+if (Tmap>40&&Tmap<45){
   
   push()
   colorMode(HSB)
@@ -187,7 +188,7 @@ if (Tmap>30&&Tmap<45){
   }
 
 //lines appear  
-} if(Tmap>25&&Tmap<30){
+} if(Tmap>30&&Tmap<40){
         hue1=map(bass,0,100,9,24)
         bri=map(drum,0,100,80,100)
         sat=map(vocal,0,100,50,100)
@@ -197,7 +198,7 @@ if (Tmap>30&&Tmap<45){
         hue5=map(bass,0,100,330,360)
             
         let linePos=330
-        lineFinshPoint=lineFinshPoint+12
+        lineFinshPoint=lineFinshPoint+6
         if(lineFinshPoint<=1280){
 
         push()
@@ -216,7 +217,7 @@ if (Tmap>30&&Tmap<45){
         pop()}
         
 }
-if(Tmap<26){
+if(Tmap<30){
         hue1=map(bass,0,100,9,24)
         bri=map(drum,0,100,80,100)
         sat=map(vocal,0,100,50,100)
@@ -225,10 +226,10 @@ if(Tmap<26){
         hue4=map(bass,0,100,280,320)
         hue5=map(bass,0,100,330,360)
 
-        let linePos=map(vocal,0,100,330,400)
-        let controlPointx=map(drum,0,100,450,500)
-        let controlPointy=map(vocal,0,100,-100,50)
-        let controlPointy1=map(vocal,0,100,-90,40)
+        let linePos=map(vocal,0,100,330,430)
+        let controlPointx=map(drum,0,100,450,900)
+        let controlPointy=map(vocal,0,100,-100,150)
+        let controlPointy1=map(vocal,0,100,-90,140)
 
         push()
         colorMode(HSB)
@@ -345,19 +346,19 @@ drawHearts()
 if(rainCount<300&&rainCount>30){
 push()
 let cloudPosy=map(bass,0,100,150,200)*speedFactor
-
-drawClouds(map(vocal,0,100,40,150),cloudPosy-110,50,map(rainCount,300,50,80,0))
-drawClouds(map(bass,0,100,250,300),cloudPosy-80,50,map(rainCount,300,50,80,0))
-drawClouds(map(vocal,0,100,900,1050),cloudPosy-100,40,map(rainCount,300,50,100,0))
-drawClouds(map(drum,0,100,300,450),cloudPosy-25,55,map(rainCount,300,50,100,0))
-drawClouds(map(vocal,0,100,400,500),cloudPosy,50,map(rainCount,300,50,90,0))
-drawClouds(map(vocal,0,100,200,300),cloudPosy-150,35,map(rainCount,300,50,70,0))
-drawClouds(map(drum,0,100,0,30),cloudPosy-10,35,map(rainCount,300,50,60,0))
-drawClouds(map(vocal,0,100,160,280),cloudPosy-60,50,map(rainCount,300,50,65,0))
-drawClouds(map(drum,0,100,1100,1180),cloudPosy-100,40,map(rainCount,300,50,100,0))
-drawClouds(map(vocal,0,100,1000,1100),cloudPosy-30,55,map(rainCount,300,50,110,0))
-drawClouds(map(bass,0,100,1100,1280),cloudPosy-50,70,map(rainCount,300,50,100,0))
-drawClouds(map(vocal,0,100,800,900),cloudPosy-150,35,map(rainCount,300,50,90,0))
+cloudPosx+=1
+drawClouds(cloudPosx+50,cloudPosy-110,50,map(rainCount,300,50,80,0))
+drawClouds(cloudPosx+250,cloudPosy-80,50,map(rainCount,300,50,80,0))
+drawClouds(cloudPosx+900,cloudPosy-100,40,map(rainCount,300,50,100,0))
+drawClouds(cloudPosx+300,cloudPosy-25,55,map(rainCount,300,50,100,0))
+drawClouds(cloudPosx+400,cloudPosy,50,map(rainCount,300,50,90,0))
+drawClouds(cloudPosx+200,cloudPosy-120,35,map(rainCount,300,50,70,0))
+drawClouds(cloudPosx,cloudPosy-10,35,map(rainCount,300,50,60,0))
+drawClouds(cloudPosx+160,cloudPosy-60,50,map(rainCount,300,50,65,0))
+drawClouds(cloudPosx+1100,cloudPosy-100,40,map(rainCount,300,50,100,0))
+drawClouds(cloudPosx+800,cloudPosy-30,55,map(rainCount,300,50,110,0))
+drawClouds(cloudPosx+1000,cloudPosy-50,70,map(rainCount,300,50,100,0))
+drawClouds(cloudPosx+500,cloudPosy-120,35,map(rainCount,300,50,90,0))
 
 
 

@@ -14,6 +14,8 @@ let pointStarx4=0
 let pointStarx5=0 
 let lineFinshPoint=0
 let isRaining=true
+let rainCount;
+
 
 
 
@@ -25,7 +27,7 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
   let innerSize=frameCount*0.4
   let inSize=frameCount*0.2
   let Tmap = map(size, 0,1000, 50,0)
-  let rainCount=map(Tmap,50,0,1000,0)
+  rainCount=map(Tmap,50,0,1000,0)
   push()
   colorMode(HSB)
   background(map(Tmap,50,10,230,220), 50, map(Tmap,50,0,75,100),10)
@@ -96,7 +98,10 @@ if(isRaining=true){
         line(x, y, x + 5, y + 15);
             }
 }  
- //doing the point moving  
+ 
+
+
+//doing the point moving  
 let pointStar1=linePos=330
 let pointStar2=linePos+20
 let pointStar3=linePos+40
@@ -180,6 +185,7 @@ if (Tmap>18&&Tmap<45){
   }
 
   }
+
 //lines appear  
 } if(Tmap>10&&Tmap<23){
         hue1=map(bass,0,100,9,24)
@@ -212,23 +218,23 @@ if (Tmap>18&&Tmap<45){
 }
 if(Tmap<16){
         hue1=map(bass,0,100,9,24)
-        bri=map(other,0,100,80,100)
+        bri=map(drum,0,100,80,100)
         sat=map(vocal,0,100,50,100)
         hue2=map(bass,0,100,40,100)
         hue3=map(bass,0,100,200,250)
         hue4=map(bass,0,100,280,320)
         hue5=map(bass,0,100,330,360)
 
-        let linePos=330
-        let controlPointx=460
-        let controlPointy=map(vocal,0,100,-40,40)
-        let controlPointy1=map(vocal,0,100,-30,30)
+        let linePos=map(vocal,30,100,330,350)
+        let controlPointx=map(drum,0,100,450,500)
+        let controlPointy=map(vocal,0,100,-50,50)
+        let controlPointy1=map(vocal,0,100,-40,40)
 
         push()
         colorMode(HSB)
         stroke(hue1,sat,bri)
         strokeWeight(1)
-         //first line
+        //first line
         // line(0,linePos,420,linePos)
         // line(620,linePos,1280,linePos)
         frameRate(8)
@@ -286,26 +292,68 @@ let d4=25
 let d5=46
 butterflyDis=[d1,d2,d3,d4,d5]
 let randomDis=random(butterflyDis)
-if (Tmap<15){
+if (Tmap<16){
   push()
   frameRate(10)
-drawButterfly(map(vocal,0,100,10,700),randomDis+450,random(40,50))
 drawButterfly(map(drum,0,100,10,700),randomDis*3+450,random(60,70))
-drawButterfly(map(bass,0,100,10,700),randomDis*5+450,random(75,85))
-drawButterfly(map(vocal,0,100,10,700),randomDis,random(40,50))
-drawButterfly(map(drum,0,100,10,700),randomDis*3,random(60,70))
 drawButterfly(map(bass,0,100,10,700),randomDis*5,random(75,85))
+       push()
+       angleMode(DEGREES)
+       translate(550,270)
+       var r=100
+       let angleButterfly=map(vocal,0,100,0,360)
+      drawButterfly(r*sin(angleButterfly),r*cos(angleButterfly),map(drum,0,60,35,65))
+      pop()
+      push()
+      translate(650,600)
+      drawButterfly(r*sin(angleButterfly),r*cos(angleButterfly),map(bass,0,60,35,65))
+       pop()
   pop()
 
 push()
 frameRate(map(vocal,0,100,3,8))
-drawFlowers(random(100,1000),random(100,300),map(vocal,30,100,30,80),map(drum,0,100,4,10))
-drawFlowers(random(100,1000),random(450,700),map(vocal,30,100,50,80),map(drum,0,100,4,10))
-
+drawFlowers(random(100,1000),random(100,300),map(vocal,30,100,30,80),map(drum,0,100,4,6))
+drawFlowers(random(100,1000),random(450,700),map(vocal,30,100,50,80),map(drum,0,100,4,6))
+drawFlowers(650,270,map(vocal,30,100,30,80),map(drum,0,100,4,12))
+drawFlowers(650,600,map(vocal,30,100,50,80),map(drum,0,100,4,12))
+drawFlowers(450,600,map(vocal,30,100,50,80),map(drum,0,100,4,12))
+drawFlowers(450,270,map(vocal,30,100,30,80),map(drum,0,100,4,12))
+drawFlowers(850,270,map(vocal,30,100,30,80),map(drum,0,100,4,12))
+drawFlowers(850,600,map(vocal,30,100,50,80),map(drum,0,100,4,12))
 pop()
 
+
+
+//Draw Hearts
 drawHearts()
-drawClouds()
+
+
+
+//DRAW Clouds
+if(rainCount<300&&rainCount>30){
+push()
+let cloudPosy=map(bass,0,100,150,200)
+
+drawClouds(map(vocal,0,100,40,150),cloudPosy-110,50,map(rainCount,300,30,80,0))
+drawClouds(map(bass,0,100,250,300),cloudPosy-80,50,map(rainCount,300,30,80,0))
+drawClouds(map(vocal,0,100,900,1050),cloudPosy-100,40,map(rainCount,300,30,100,0))
+drawClouds(map(drum,0,100,300,450),cloudPosy-25,55,map(rainCount,300,30,100,0))
+drawClouds(map(vocal,0,100,400,500),cloudPosy,50,map(rainCount,300,30,90,0))
+drawClouds(map(vocal,0,100,200,300),cloudPosy-150,35,map(rainCount,300,30,70,0))
+drawClouds(map(drum,0,100,0,30),cloudPosy-10,35,map(rainCount,300,30,60,0))
+drawClouds(map(vocal,0,100,160,280),cloudPosy-60,50,map(rainCount,300,30,65,0))
+drawClouds(map(drum,0,100,1100,1180),cloudPosy-100,40,map(rainCount,300,30,100,0))
+drawClouds(map(vocal,0,100,1000,1100),cloudPosy-30,55,map(rainCount,300,30,110,0))
+drawClouds(map(bass,0,100,1100,1280),cloudPosy-50,70,map(rainCount,300,30,100,0))
+drawClouds(map(vocal,0,100,800,900),cloudPosy-150,35,map(rainCount,300,30,90,0))
+
+
+
+
+pop()
+}
+
+//draw lights
 if(rainCount<100){
 push()
 noStroke()
@@ -335,14 +383,14 @@ let c2=color(144, 210, 232,random(100,160))
 let c3=color(250, 192, 236,random(100,160))
 butterflyColor=[c1,c2,c3]
 let randomColor=random(butterflyColor)
-
+let randomAngle=random(68,75)
 push()
 noStroke()
 translate(butterflyPosx,butterflyPosy)
 angleMode(DEGREES)
 fill(randomColor)
 ellipse(0,0,butterflySize/2,butterflySize);
-rotate(70)
+rotate(randomAngle)
 ellipse(0,0,butterflySize/2,butterflySize)
 pop()
 push()
@@ -350,8 +398,10 @@ stroke(randomColor)
 strokeWeight(2)
 point(butterflyPosx+butterflySize/4,butterflyPosy-butterflySize/1.5)
 point(butterflyPosx+butterflySize/2,butterflyPosy-butterflySize/1.8)
-//point(butterflyPosx+13,butterflyPosy-butterflySize/2.2) control point
+ //point(butterflyPosx+13,butterflyPosy-butterflySize/2.2) control point
 
+
+  //butterfly head and eyes
 beginShape()
 vertex(butterflyPosx+butterflySize/4-2,butterflyPosy-butterflySize/4)
 quadraticVertex(butterflyPosx+13,butterflyPosy-butterflySize/2.2,butterflyPosx+butterflySize/4,butterflyPosy-butterflySize/1.5)
@@ -408,7 +458,7 @@ for(i=0;i<petalNum;i++){
   ellipse(0,0,flowerSize/3,flowerSize/3)
 
 }
-
+ellipse(0,0,flowerSize/10,flowerSize/10)
 
 pop()
 
@@ -417,5 +467,28 @@ pop()
 // draw hearts
 function drawHearts(){}
 
-//draw Clouds
-function drawClouds(){}
+
+function drawClouds(cloudPosx,cloudPosy,cloudSize,Transp){
+    push()
+    colorMode(HSB)
+    translate(cloudPosx,cloudPosy)
+    noStroke()
+    fill(0,0,60,Transp)
+    ellipse(0,0,cloudSize,cloudSize)
+    ellipse(10,10,cloudSize,cloudSize/2)
+    ellipse(-20,10,cloudSize,cloudSize/2)
+    fill(0,0,70,Transp)
+    ellipse(0,0,cloudSize-5,cloudSize-5)
+    ellipse(10,10,cloudSize-5,(cloudSize-5)/2)
+    ellipse(-20,10,cloudSize-5,(cloudSize-5)/2)
+    fill(0,0,80,Transp)
+    ellipse(0,0,cloudSize-9,cloudSize-5)
+    ellipse(10,10,cloudSize-9,(cloudSize-5)/2)
+    ellipse(-20,10,cloudSize-9,(cloudSize-5)/2)
+    fill(0,0,90,Transp)
+    ellipse(-2,-2,cloudSize-9,cloudSize-5)
+    ellipse(8,8,cloudSize-9,(cloudSize-5)/2)
+    ellipse(-22,8,cloudSize-9,(cloudSize-5)/2)
+
+    pop()
+}

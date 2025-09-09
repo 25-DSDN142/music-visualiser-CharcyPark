@@ -1,4 +1,3 @@
-
 // vocal, drum, bass, and other are volumes ranging from 0 to 100
 
 let cycleCompleted=false
@@ -15,13 +14,14 @@ let pointStarx5=0
 let lineFinshPoint=0
 let isRaining=true
 let rainCount;
-
+let speedFactor
 
 
 
 function draw_one_frame(words, vocal, drum, bass, other, counter) {
   //varibles
-
+frameRate(45)
+speedFactor=noise(frameCount*0.01)
   let size=frameCount*0.6
   let insideSize=frameCount*0.5
   let innerSize=frameCount*0.4
@@ -131,7 +131,7 @@ sat3=map(pointStarx3,0,1280,0,100)
 sat4=map(pointStarx4,0,1280,0,100)
 sat5=map(pointStarx5,0,1280,0,100)
 bri=map(vocal,0,100,80,100)
-if (Tmap>18&&Tmap<45){
+if (Tmap>30&&Tmap<45){
   
   push()
   colorMode(HSB)
@@ -187,7 +187,7 @@ if (Tmap>18&&Tmap<45){
   }
 
 //lines appear  
-} if(Tmap>10&&Tmap<23){
+} if(Tmap>25&&Tmap<30){
         hue1=map(bass,0,100,9,24)
         bri=map(drum,0,100,80,100)
         sat=map(vocal,0,100,50,100)
@@ -197,7 +197,7 @@ if (Tmap>18&&Tmap<45){
         hue5=map(bass,0,100,330,360)
             
         let linePos=330
-        lineFinshPoint=lineFinshPoint+6
+        lineFinshPoint=lineFinshPoint+12
         if(lineFinshPoint<=1280){
 
         push()
@@ -216,7 +216,7 @@ if (Tmap>18&&Tmap<45){
         pop()}
         
 }
-if(Tmap<16){
+if(Tmap<26){
         hue1=map(bass,0,100,9,24)
         bri=map(drum,0,100,80,100)
         sat=map(vocal,0,100,50,100)
@@ -225,19 +225,17 @@ if(Tmap<16){
         hue4=map(bass,0,100,280,320)
         hue5=map(bass,0,100,330,360)
 
-        let linePos=map(vocal,30,100,330,350)
+        let linePos=map(vocal,0,100,330,400)
         let controlPointx=map(drum,0,100,450,500)
-        let controlPointy=map(vocal,0,100,-50,50)
-        let controlPointy1=map(vocal,0,100,-40,40)
+        let controlPointy=map(vocal,0,100,-100,50)
+        let controlPointy1=map(vocal,0,100,-90,40)
 
         push()
         colorMode(HSB)
         stroke(hue1,sat,bri)
         strokeWeight(1)
         //first line
-        // line(0,linePos,420,linePos)
-        // line(620,linePos,1280,linePos)
-        frameRate(8)
+        
         beginShape()
         vertex(0,linePos)
         quadraticVertex(controlPointx,linePos-controlPointy,1280,linePos)
@@ -292,34 +290,48 @@ let d4=25
 let d5=46
 butterflyDis=[d1,d2,d3,d4,d5]
 let randomDis=random(butterflyDis)
-if (Tmap<16){
+if (Tmap<20){
   push()
-  frameRate(10)
-drawButterfly(map(drum,0,100,10,700),randomDis*3+450,random(60,70))
+drawButterfly(map(drum,0,100,10,700),(randomDis*3+450),random(60,70))
 drawButterfly(map(bass,0,100,10,700),randomDis*5,random(75,85))
        push()
        angleMode(DEGREES)
-       translate(550,270)
-       var r=100
-       let angleButterfly=map(vocal,0,100,0,360)
+       translate(650,270)
+       var r=80
+       let angleButterfly=map(vocal,0,100,0,180)
       drawButterfly(r*sin(angleButterfly),r*cos(angleButterfly),map(drum,0,60,35,65))
       pop()
       push()
       translate(650,600)
+      drawButterfly((r+40)*sin(-angleButterfly),(r+20)*cos(angleButterfly),map(bass,0,60,35,65))
+       pop()
+       push()
+      translate(450,600)
+      drawButterfly(r*sin(-angleButterfly),(r+50)*cos(angleButterfly),map(bass,0,60,35,65))
+       pop()
+         push()
+      translate(850,600)
+      drawButterfly(r*sin(-angleButterfly),r*cos(angleButterfly),map(bass,0,60,35,65))
+       pop()
+         push()
+      translate(450,270)
       drawButterfly(r*sin(angleButterfly),r*cos(angleButterfly),map(bass,0,60,35,65))
+       pop()
+      push()
+      translate(850,270)
+      drawButterfly((r+130)*sin(angleButterfly),r*cos(angleButterfly),map(bass,0,60,35,65))
        pop()
   pop()
 
 push()
-frameRate(map(vocal,0,100,3,8))
-drawFlowers(random(100,1000),random(100,300),map(vocal,30,100,30,80),map(drum,0,100,4,6))
-drawFlowers(random(100,1000),random(450,700),map(vocal,30,100,50,80),map(drum,0,100,4,6))
-drawFlowers(650,270,map(vocal,30,100,30,80),map(drum,0,100,4,12))
-drawFlowers(650,600,map(vocal,30,100,50,80),map(drum,0,100,4,12))
-drawFlowers(450,600,map(vocal,30,100,50,80),map(drum,0,100,4,12))
-drawFlowers(450,270,map(vocal,30,100,30,80),map(drum,0,100,4,12))
-drawFlowers(850,270,map(vocal,30,100,30,80),map(drum,0,100,4,12))
-drawFlowers(850,600,map(vocal,30,100,50,80),map(drum,0,100,4,12))
+drawFlowers(midx*2*speedFactor,midy/2*speedFactor,map(vocal,30,100,30,120)*speedFactor,8)
+drawFlowers(midx*2*speedFactor,midy*3/2*speedFactor,map(vocal,30,100,50,200)*speedFactor,8)
+drawFlowers(650,270,map(vocal,30,100,30,280),map(vocal,0,100,8,20))
+drawFlowers(650,600,map(vocal,30,100,50,280),map(vocal,0,100,8,20))
+drawFlowers(450,600,map(vocal,30,100,50,180),map(drum,0,100,8,20))
+drawFlowers(450,270,map(vocal,30,100,30,180),map(drum,0,100,8,20))
+drawFlowers(850,270,map(vocal,30,100,30,180),map(drum,0,100,8,20))
+drawFlowers(850,600,map(vocal,30,100,50,180),map(drum,0,100,8,20))
 pop()
 
 
@@ -332,20 +344,20 @@ drawHearts()
 //DRAW Clouds
 if(rainCount<300&&rainCount>30){
 push()
-let cloudPosy=map(bass,0,100,150,200)
+let cloudPosy=map(bass,0,100,150,200)*speedFactor
 
-drawClouds(map(vocal,0,100,40,150),cloudPosy-110,50,map(rainCount,300,30,80,0))
-drawClouds(map(bass,0,100,250,300),cloudPosy-80,50,map(rainCount,300,30,80,0))
-drawClouds(map(vocal,0,100,900,1050),cloudPosy-100,40,map(rainCount,300,30,100,0))
-drawClouds(map(drum,0,100,300,450),cloudPosy-25,55,map(rainCount,300,30,100,0))
-drawClouds(map(vocal,0,100,400,500),cloudPosy,50,map(rainCount,300,30,90,0))
-drawClouds(map(vocal,0,100,200,300),cloudPosy-150,35,map(rainCount,300,30,70,0))
-drawClouds(map(drum,0,100,0,30),cloudPosy-10,35,map(rainCount,300,30,60,0))
-drawClouds(map(vocal,0,100,160,280),cloudPosy-60,50,map(rainCount,300,30,65,0))
-drawClouds(map(drum,0,100,1100,1180),cloudPosy-100,40,map(rainCount,300,30,100,0))
-drawClouds(map(vocal,0,100,1000,1100),cloudPosy-30,55,map(rainCount,300,30,110,0))
-drawClouds(map(bass,0,100,1100,1280),cloudPosy-50,70,map(rainCount,300,30,100,0))
-drawClouds(map(vocal,0,100,800,900),cloudPosy-150,35,map(rainCount,300,30,90,0))
+drawClouds(map(vocal,0,100,40,150),cloudPosy-110,50,map(rainCount,300,50,80,0))
+drawClouds(map(bass,0,100,250,300),cloudPosy-80,50,map(rainCount,300,50,80,0))
+drawClouds(map(vocal,0,100,900,1050),cloudPosy-100,40,map(rainCount,300,50,100,0))
+drawClouds(map(drum,0,100,300,450),cloudPosy-25,55,map(rainCount,300,50,100,0))
+drawClouds(map(vocal,0,100,400,500),cloudPosy,50,map(rainCount,300,50,90,0))
+drawClouds(map(vocal,0,100,200,300),cloudPosy-150,35,map(rainCount,300,50,70,0))
+drawClouds(map(drum,0,100,0,30),cloudPosy-10,35,map(rainCount,300,50,60,0))
+drawClouds(map(vocal,0,100,160,280),cloudPosy-60,50,map(rainCount,300,50,65,0))
+drawClouds(map(drum,0,100,1100,1180),cloudPosy-100,40,map(rainCount,300,50,100,0))
+drawClouds(map(vocal,0,100,1000,1100),cloudPosy-30,55,map(rainCount,300,50,110,0))
+drawClouds(map(bass,0,100,1100,1280),cloudPosy-50,70,map(rainCount,300,50,100,0))
+drawClouds(map(vocal,0,100,800,900),cloudPosy-150,35,map(rainCount,300,50,90,0))
 
 
 
@@ -421,9 +433,7 @@ pop()
 //draw light
 function drawLights(lightPosx,lightPosy,startPointx,startPointy){
 
-// line(0,0,lightPosx,lightPosy)
-// rotate(30)
-// line(0,0,lightPosx,lightPosy)
+
 beginShape()
 curveVertex(startPointx,0)
 curveVertex(startPointx+50,0)
@@ -439,10 +449,10 @@ endShape()
 
 //draw flowers
 function drawFlowers(flowerPosx,flowerPosy,flowerSize,petalNum){
-  let fc1=color(221, 144, 240,120)
+  let fc1=color(221, 144, 240,80)
   let fc2=color(150, 123, 224,120)
   let fc3=color(247, 123, 104,100)
-  let fc4=color(223, 242, 111,120)
+  let fc4=color(223, 242, 111,60)
   flowerColor=[fc1,fc2,fc3,fc4]
   let randomFlowerColor=random(flowerColor)
   

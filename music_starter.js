@@ -16,6 +16,18 @@ let isRaining=true
 let rainCount;
 let speedFactor
 var cloudPosx=0
+let hue1
+let hue2
+let hue3
+let hue4
+let hue5
+let sat1
+let sat2
+let sat3
+let sat4
+let sat5
+let bri
+let sat
 
 
 
@@ -29,10 +41,12 @@ speedFactor=noise(frameCount*0.01)
   let inSize=frameCount*0.2
   let Tmap = map(size, 0,1000, 50,0)
   rainCount=map(Tmap,50,0,1000,0)
+  if(millis()<=88000){
   push()
   colorMode(HSB)
-  background(map(Tmap,50,10,230,220), 50, map(Tmap,50,0,75,100),10)
-  pop()
+  background(map(Tmap,50,10,230,220), 50, map(Tmap,50,0,75,100),5)
+  pop()}
+else if (millis()>88000&&millis()<196000){background(131, 188, 240,50)}
   //let wordSize=map(vocal,0,100,50,100)
 let midx=canvasWidth/2
 let midy=canvasHeight/2
@@ -60,9 +74,7 @@ text('JC-T', 1200,700)
    cycleCompleted=true
    }
   }
-  
-
-
+if(millis()>0){  
 for(let yPos=-100; yPos<700;yPos++){
   yPos=yPos+150
 for(let xPos=-200; xPos<1200;xPos++){
@@ -87,7 +99,7 @@ for(let xPos=-200; xPos<1200;xPos++){
   ellipse(xPos,yPos,inSize,inSize/2)
   }
 }
-  }
+  }}
 //draw rains
 if(isRaining=true){
   stroke(180, 220, 255, 100); 
@@ -108,31 +120,20 @@ let pointStar2=linePos+20
 let pointStar3=linePos+40
 let pointStar4=linePos+60
 let pointStar5=linePos+80
-let hue1
-let hue2
-let hue3
-let hue4
-let hue5
-let sat1
-let sat2
-let sat3
-let sat4
-let sat5
-let bri
-let sat
 
-hue1=map(bass,0,100,9,24)
-hue2=map(bass,0,100,40,100)
-hue3=map(bass,0,100,220,250)
-hue4=map(bass,0,100,280,320)
-hue5=map(bass,0,100,330,360)
+
+hue1=map(bass,10,100,9,24)
+hue2=map(bass,10,100,40,100)
+hue3=map(bass,10,100,220,250)
+hue4=map(bass,10,100,280,320)
+hue5=map(bass,10,100,330,360)
 sat1=map(pointStarx1,0,1280,0,100)
 sat2=map(pointStarx2,0,1280,0,100)
 sat3=map(pointStarx3,0,1280,0,100)
 sat4=map(pointStarx4,0,1280,0,100)
 sat5=map(pointStarx5,0,1280,0,100)
 bri=map(vocal,0,100,80,100)
-if (Tmap>40&&Tmap<45){
+if (millis()>3000&&millis()<22000){
   
   push()
   colorMode(HSB)
@@ -140,43 +141,54 @@ if (Tmap>40&&Tmap<45){
   fill(hue1,sat1,bri)
   noStroke()
   ellipse(pointStarx1,pointStar1,10,10)
-  pointStarx1=pointStarx1+10
+  stroke(hue1,sat1,bri)
+  strokeWeight(2)
+  line(pointStarx1+5,pointStar1,pointStarx1+5,pointStar1-25)
+  pointStarx1=pointStarx1+8
   pop()
   if(pointStarx1>1280){pointStarx1=0}
-  if(pointStarx1>100){
+  if(millis()>4000&&millis()<22000){
     push()
     colorMode(HSB)
-    fill(hue2,sat2,bri)
-    noStroke()
+    noFill()
+    stroke(hue2,sat2,bri)
+    strokeWeight(2)
     ellipse(pointStarx2,pointStar2,10,10)
-    pointStarx2=pointStarx2+10
+    line(pointStarx2+5,pointStar2,pointStarx2+5,pointStar2-25)
+    pointStarx2=pointStarx2+8
   pop()
   if(pointStarx2>1280){pointStarx2=0}
-  if(pointStarx2>100){
+  if(millis()>5000&&millis()<22000){
     push()
     colorMode(HSB)
     fill(hue3,sat3,bri)
     noStroke()
     ellipse(pointStarx3,pointStar3,10,10)
-    pointStarx3=pointStarx3+10
+    stroke(hue3,sat3,bri)
+    strokeWeight(2)
+    line(pointStarx3+5,pointStar3,pointStarx3+5,pointStar3-25)
+    pointStarx3=pointStarx3+8
     pop()
     if(pointStarx3>1280){pointStarx3=0}
-    if(pointStarx3>100){
+    if(millis()>6000&&millis()<22000){
       push()
       colorMode(HSB)
       fill(hue4,sat4,bri)
       noStroke()
       ellipse(pointStarx4,pointStar4,10,10)
-      pointStarx4=pointStarx4+10
+      pointStarx4=pointStarx4+8
       pop()
       if(pointStarx4>1280){pointStarx4=0}
-      if(pointStarx4>100){
+      if(millis()>7000&&millis()<22000){
         push()
         colorMode(HSB)
         fill(hue5,sat5,bri)
         noStroke()
         ellipse(pointStarx5,pointStar5,10,10)
-        pointStarx5=pointStarx5+10
+        stroke(hue5,sat5,bri)
+        strokeWeight(2)
+        line(pointStarx5+5,pointStar5,pointStarx5+5,pointStar5-25)
+        pointStarx5=pointStarx5+8
         pop()
       }
       if(pointStarx5>1280){
@@ -188,7 +200,7 @@ if (Tmap>40&&Tmap<45){
   }
 
 //lines appear  
-} if(Tmap>30&&Tmap<40){
+} if(millis()>=14000&&millis()<=22000){
         hue1=map(bass,0,100,9,24)
         bri=map(drum,0,100,80,100)
         sat=map(vocal,0,100,50,100)
@@ -199,7 +211,7 @@ if (Tmap>40&&Tmap<45){
             
         let linePos=330
         lineFinshPoint=lineFinshPoint+6
-        if(lineFinshPoint<=1280){
+        if(lineFinshPoint<=1780){
 
         push()
         colorMode(HSB)
@@ -217,7 +229,7 @@ if (Tmap>40&&Tmap<45){
         pop()}
         
 }
-if(Tmap<30){
+if(millis()>22000){
         hue1=map(bass,0,100,9,24)
         bri=map(drum,0,100,80,100)
         sat=map(vocal,0,100,50,100)
@@ -228,8 +240,8 @@ if(Tmap<30){
 
         let linePos=map(vocal,0,100,330,430)
         let controlPointx=map(drum,0,100,450,900)
-        let controlPointy=map(vocal,0,100,-100,150)
-        let controlPointy1=map(vocal,0,100,-90,140)
+        let controlPointy=map(bass,20,90,-80,120)
+        let controlPointy1=map(bass,20,90,-80,120)
 
         push()
         colorMode(HSB)
@@ -291,7 +303,7 @@ let d4=25
 let d5=46
 butterflyDis=[d1,d2,d3,d4,d5]
 let randomDis=random(butterflyDis)
-if (Tmap<20){
+if (millis()>23000){
   push()
 drawButterfly(map(drum,0,100,10,700),(randomDis*3+450),random(60,70))
 drawButterfly(map(bass,0,100,10,700),randomDis*5,random(75,85))
@@ -307,32 +319,30 @@ drawButterfly(map(bass,0,100,10,700),randomDis*5,random(75,85))
       drawButterfly((r+40)*sin(-angleButterfly),(r+20)*cos(angleButterfly),map(bass,0,60,35,65))
        pop()
        push()
-      translate(450,600)
+      translate(150,600)
       drawButterfly(r*sin(-angleButterfly),(r+50)*cos(angleButterfly),map(bass,0,60,35,65))
        pop()
          push()
-      translate(850,600)
+      translate(1150,600)
       drawButterfly(r*sin(-angleButterfly),r*cos(angleButterfly),map(bass,0,60,35,65))
        pop()
          push()
-      translate(450,270)
+      translate(150,170)
       drawButterfly(r*sin(angleButterfly),r*cos(angleButterfly),map(bass,0,60,35,65))
        pop()
       push()
-      translate(850,270)
+      translate(1150,170)
       drawButterfly((r+130)*sin(angleButterfly),r*cos(angleButterfly),map(bass,0,60,35,65))
        pop()
   pop()
 
 push()
-drawFlowers(midx*2*speedFactor,midy/2*speedFactor,map(vocal,30,100,30,120)*speedFactor,8)
-drawFlowers(midx*2*speedFactor,midy*3/2*speedFactor,map(vocal,30,100,50,200)*speedFactor,8)
 drawFlowers(650,270,map(vocal,30,100,30,280),map(vocal,0,100,8,20))
 drawFlowers(650,600,map(vocal,30,100,50,280),map(vocal,0,100,8,20))
-drawFlowers(450,600,map(vocal,30,100,50,180),map(drum,0,100,8,20))
-drawFlowers(450,270,map(vocal,30,100,30,180),map(drum,0,100,8,20))
-drawFlowers(850,270,map(vocal,30,100,30,180),map(drum,0,100,8,20))
-drawFlowers(850,600,map(vocal,30,100,50,180),map(drum,0,100,8,20))
+drawFlowers(150,600,map(vocal,30,100,50,180),map(drum,0,100,8,20))
+drawFlowers(150,170,map(vocal,30,100,30,180),map(drum,0,100,8,20))
+drawFlowers(1150,170,map(vocal,30,100,30,180),map(drum,0,100,8,20))
+drawFlowers(1150,600,map(vocal,30,100,50,180),map(drum,0,100,8,20))
 pop()
 
 
@@ -381,7 +391,11 @@ drawLights(map(vocal,0,100,700,800),map(vocal,0,100,700,800),300,0)
 drawLights(map(bass,0,100,1280,1400),map(vocal,0,100,700,800),700,0)
 drawLights(map(vocal,0,100,1300,1400),map(vocal,0,100,400,680),550,0)}
 
-pop()}
+pop()
+//draw Fire
+drawFire(1150,700,map(vocal,20,70,120,80))
+
+}
 }
 
 
@@ -503,3 +517,26 @@ function drawClouds(cloudPosx,cloudPosy,cloudSize,Transp){
 
     pop()
 }
+function drawFire(firePosx,firePosy,fireSize){
+
+  push()
+  translate(firePosx,firePosy)
+  noStroke()
+  fill(245, 237, 93,100)
+  beginShape()
+  vertex(0,0)
+  bezierVertex(-0.4*fireSize,0.1*fireSize,-0.2*fireSize,-0.2*fireSize,0,-0.5*fireSize)
+  bezierVertex(0.4*fireSize,0.1*fireSize,0.2*fireSize,0,0,0)
+  endShape()
+  fill(242, 150, 80,80)
+  beginShape()
+  vertex(0,0.1*fireSize)
+  quadraticVertex(-0.5*fireSize,0.1*fireSize,-0.4*fireSize,-0.35*fireSize)
+  quadraticVertex(-0.25*fireSize,-0.2*fireSize,0,-0.8*fireSize)
+  quadraticVertex(0.25*fireSize,-0.35*fireSize,0.3*fireSize,-0.45*fireSize)
+  quadraticVertex(0.3*fireSize,-0.1*fireSize,0.4*fireSize,-0.25*fireSize)
+  quadraticVertex(0.4*fireSize,0.1*fireSize,0,0.1*fireSize)
+
+
+
+  endShape()}

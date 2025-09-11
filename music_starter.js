@@ -405,28 +405,30 @@ drawFire(1150,700,map(vocal,20,70,120,80))
 function drawButterfly(butterflyPosx,butterflyPosy,butterflySize){
 
 colorMode(RGB)
-let c1=color(245, 243, 144,random(100,160))
-let c2=color(144, 210, 232,random(100,160))
-let c3=color(250, 192, 236,random(100,160))
-butterflyColor=[c1,c2,c3]
-let randomColor=random(butterflyColor)
+
+butterflyColor=[color(245, 243, 144,100),
+color(144, 210, 232,120),
+color(250, 192, 236,150)]
+let t=(frameCount*0.002)%1
+let idx=floor(t*butterflyColor.length)
+let nextIdx=(idx+1)%butterflyColor.length
+let amt=(t*(butterflyColor.length))%1
+let cc=lerpColor(butterflyColor[idx],butterflyColor[nextIdx],amt)
 let randomAngle=random(68,75)
 push()
 noStroke()
 translate(butterflyPosx,butterflyPosy)
 angleMode(DEGREES)
-fill(randomColor)
+fill(cc)
 ellipse(0,0,butterflySize/2,butterflySize);
 rotate(randomAngle)
 ellipse(0,0,butterflySize/2,butterflySize)
 pop()
 push()
-stroke(randomColor)
+stroke(cc)
 strokeWeight(2)
 point(butterflyPosx+butterflySize/4,butterflyPosy-butterflySize/1.5)
 point(butterflyPosx+butterflySize/2,butterflyPosy-butterflySize/1.8)
- //point(butterflyPosx+13,butterflyPosy-butterflySize/2.2) control point
-
 
   //butterfly head and eyes
 beginShape()
@@ -464,19 +466,22 @@ endShape()
 
 //draw flowers
 function drawFlowers(flowerPosx,flowerPosy,flowerSize,petalNum){
-  let fc1=color(211, 148, 227,80)//pink
-  let fc2=color(146, 123, 209,100)//purple
-  let fc3=color(247, 123, 104,80)//red
-  let fc4=color(238, 250, 170,60)//yellow
-  flowerColor=[fc1,fc2,fc3,fc4]
-  let randomFlowerColor=random(flowerColor)
-  
+let flowerColor=[color(211, 148, 227,80),//pink
+  color(146, 123, 209,100),//purple
+  color(247, 123, 104,80),//red
+  color(238, 250, 170,60)//yellow
+]
+let t=(frameCount*0.002)%1
+let idx=floor(t*flowerColor.length)
+let nextIdx=(idx+1)%flowerColor.length
+let amt=(t*(flowerColor.length))%1
+let c=lerpColor(flowerColor[idx],flowerColor[nextIdx],amt)  
 push()
 
 translate(flowerPosx,flowerPosy)
 angleMode(DEGREES)
-stroke(randomFlowerColor)
-fill(randomFlowerColor)
+stroke(c)
+fill(c)
 for(i=0;i<petalNum;i++){
   ellipse(0,0,flowerSize,flowerSize/3)
   rotate(360/petalNum)

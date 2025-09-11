@@ -14,7 +14,6 @@ let pointStarx5=0
 let lineFinshPoint=0
 let isRaining=true
 let rainCount;
-let speedFactor
 var cloudPosx=0
 let hue1
 let hue2
@@ -46,7 +45,7 @@ speedFactor=noise(frameCount*0.01)
   colorMode(HSB)
   background(map(Tmap,50,10,230,220), 50, map(Tmap,50,0,75,100),5)
   pop()}
-else if (millis()>88000&&millis()<196000){background(131, 188, 240,50)}
+else if (millis()>88000&&millis()<196000){background(131, 188, 240,140)}
   //let wordSize=map(vocal,0,100,50,100)
 let midx=canvasWidth/2
 let midy=canvasHeight/2
@@ -311,7 +310,7 @@ drawButterfly(map(bass,0,100,10,700),randomDis*5,random(75,85))
        angleMode(DEGREES)
        translate(650,270)
        var r=80
-       let angleButterfly=map(vocal,0,100,0,180)
+       let angleButterfly=map(vocal,10,50,0,180)
       drawButterfly(r*sin(angleButterfly),r*cos(angleButterfly),map(drum,0,60,35,65))
       pop()
       push()
@@ -332,17 +331,18 @@ drawButterfly(map(bass,0,100,10,700),randomDis*5,random(75,85))
        pop()
       push()
       translate(1150,170)
-      drawButterfly((r+130)*sin(angleButterfly),r*cos(angleButterfly),map(bass,0,60,35,65))
+      drawButterfly((r+30)*sin(-angleButterfly),r*cos(angleButterfly),50)
        pop()
   pop()
 
 push()
-drawFlowers(650,270,map(vocal,30,100,30,280),map(vocal,0,100,8,20))
-drawFlowers(650,600,map(vocal,30,100,50,280),map(vocal,0,100,8,20))
+
 drawFlowers(150,600,map(vocal,30,100,50,180),map(drum,0,100,8,20))
 drawFlowers(150,170,map(vocal,30,100,30,180),map(drum,0,100,8,20))
 drawFlowers(1150,170,map(vocal,30,100,30,180),map(drum,0,100,8,20))
 drawFlowers(1150,600,map(vocal,30,100,50,180),map(drum,0,100,8,20))
+// drawFlowers(650,270,map(vocal,30,100,30,280),map(vocal,0,100,8,20))
+// drawFlowers(650,600,map(vocal,30,100,50,280),map(vocal,0,100,8,20))
 pop()
 
 
@@ -464,10 +464,10 @@ endShape()
 
 //draw flowers
 function drawFlowers(flowerPosx,flowerPosy,flowerSize,petalNum){
-  let fc1=color(221, 144, 240,80)
-  let fc2=color(150, 123, 224,120)
-  let fc3=color(247, 123, 104,100)
-  let fc4=color(223, 242, 111,60)
+  let fc1=color(211, 148, 227,80)//pink
+  let fc2=color(146, 123, 209,100)//purple
+  let fc3=color(247, 123, 104,80)//red
+  let fc4=color(238, 250, 170,60)//yellow
   flowerColor=[fc1,fc2,fc3,fc4]
   let randomFlowerColor=random(flowerColor)
   
@@ -483,8 +483,6 @@ for(i=0;i<petalNum;i++){
   ellipse(0,0,flowerSize/3,flowerSize/3)
 
 }
-ellipse(0,0,flowerSize/10,flowerSize/10)
-
 pop()
 
 }

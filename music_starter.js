@@ -27,7 +27,7 @@ let sat4
 let sat5
 let bri
 let sat
-let t=0
+var t=0
 
 
 
@@ -289,9 +289,8 @@ if(millis()>22000){
 
 
         pop()
-        
-
-
+   //draw Fire
+drawFire(1150,700,map(vocal,20,70,120,80))     
 }
 
 
@@ -303,7 +302,8 @@ let d4=25
 let d5=46
 butterflyDis=[d1,d2,d3,d4,d5]
 let randomDis=random(butterflyDis)
-if (millis()>23000&&millis()<160000){
+
+if (millis()>23000&&millis()<165000){
   push()
 drawButterfly(map(drum,0,100,10,700),(randomDis*3+450),random(60,70))
 drawButterfly(map(bass,0,100,10,700),randomDis*5,random(75,85))
@@ -348,7 +348,7 @@ pop()
 //DRAW Clouds
 if(rainCount<300&&rainCount>30){
 push()
-let cloudPosy=map(bass,0,100,150,200)*speedFactor
+let cloudPosy=map(bass,0,100,150,200)
 cloudPosx+=1
 drawClouds(cloudPosx+50,cloudPosy-110,50,map(rainCount,300,50,80,0))
 drawClouds(cloudPosx+250,cloudPosy-80,50,map(rainCount,300,50,80,0))
@@ -367,7 +367,7 @@ pop()
 }
 
 //draw lights
-if(rainCount<100&&millis()<170000){
+if(rainCount<100&&millis()<165000){
 push()
 noStroke()
 fill(239, 245, 171,map(vocal,0,100,2,30))
@@ -382,9 +382,6 @@ drawLights(map(bass,0,100,1280,1400),map(vocal,0,100,700,800),700,0)
 drawLights(map(vocal,0,100,1300,1400),map(vocal,0,100,400,680),550,0)}
 
 pop()
-//draw Fire
-drawFire(1150,700,map(vocal,20,70,120,80))
-
 }
 }
 if(millis()>160000){
@@ -394,8 +391,8 @@ let y=13*cos(t)-5*cos(2*t)-2*cos(3*t)-cos(4*t)
 let scaleFactor = 15;
 let posX = width / 2 + x * scaleFactor;
 let posY = height / 2 - y * scaleFactor
-drawButterflyHeart(posX,posY,t)
-drawButterflyHeart(posX,posY,-t)
+drawButterflyHeart(posX,posY,50,t)
+drawButterflyHeart(posX,posY,50,-t)
 
 t=t+0.02}
 
@@ -446,7 +443,6 @@ pop()
 
 
 }
-
 //draw light
 function drawLights(lightPosx,lightPosy,startPointx,startPointy){
 
@@ -462,8 +458,6 @@ endShape()
 
 
 }
-
-
 //draw flowers
 function drawFlowers(flowerPosx,flowerPosy,flowerSize,petalNum){
 let flowerColor=[color(211, 148, 227,80),//pink
@@ -482,7 +476,7 @@ translate(flowerPosx,flowerPosy)
 angleMode(DEGREES)
 stroke(c)
 fill(c)
-for(i=0;i<petalNum;i++){
+for(let i=0;i<petalNum;i++){
   ellipse(0,0,flowerSize,flowerSize/3)
   rotate(360/petalNum)
   ellipse(0,0,flowerSize/3,flowerSize/3)
@@ -491,16 +485,15 @@ for(i=0;i<petalNum;i++){
 pop()
 
 }
-
 //final scene
 function drawButterflyHeart(x,y,size,angle){
   push()
   colorMode(HSB)
   translate(x, y)
-  rotate(sin(frameCount * 0.2) * 0.3)// flying
   noStroke()
   fill(map(noise(),0,1,0,360), 40, 100, 180)
   ellipse(0, 0, size/2, size)
+  rotate(70)
   ellipse(0, 0, size/2, size)
   fill(map(noise(),0,1,0,360), 40, 100, 180)
   pop()
@@ -522,8 +515,6 @@ quadraticVertex(x+13,y-size/2.2,x+size/2,y-size/1.8)
 endShape()
 pop()
 }
-
-
 function drawClouds(cloudPosx,cloudPosy,cloudSize,Transp){
     push()
     colorMode(HSB)

@@ -492,8 +492,19 @@ pop()
 
 }
 
-// draw hearts
-function drawHearts(){}
+//final scene
+function drawButterflyHearts(x,y,size,angle){
+  push();
+  translate(x, y);
+  rotate(sin(frameCount * 0.2) * 0.3); // flying
+  noStroke();
+  fill(200, 100, 200, 180);
+  ellipse(-10, 0, 30, 50);
+  ellipse(10, 0, 30, 50);
+  fill(50);
+  ellipse(0, 0, 10, 40); // 
+  pop();
+}
 
 
 function drawClouds(cloudPosx,cloudPosy,cloudSize,Transp){

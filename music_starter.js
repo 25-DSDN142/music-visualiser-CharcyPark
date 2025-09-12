@@ -27,6 +27,7 @@ let sat4
 let sat5
 let bri
 let sat
+let t=0
 
 
 
@@ -302,7 +303,7 @@ let d4=25
 let d5=46
 butterflyDis=[d1,d2,d3,d4,d5]
 let randomDis=random(butterflyDis)
-if (millis()>23000){
+if (millis()>23000&&millis()<160000){
   push()
 drawButterfly(map(drum,0,100,10,700),(randomDis*3+450),random(60,70))
 drawButterfly(map(bass,0,100,10,700),randomDis*5,random(75,85))
@@ -341,16 +342,8 @@ drawFlowers(150,600,map(vocal,30,100,50,180),map(drum,0,100,8,20))
 drawFlowers(150,170,map(vocal,30,100,30,180),map(drum,0,100,8,20))
 drawFlowers(1150,170,map(vocal,30,100,30,180),map(drum,0,100,8,20))
 drawFlowers(1150,600,map(vocal,30,100,50,180),map(drum,0,100,8,20))
-// drawFlowers(650,270,map(vocal,30,100,30,280),map(vocal,0,100,8,20))
-// drawFlowers(650,600,map(vocal,30,100,50,280),map(vocal,0,100,8,20))
+
 pop()
-
-
-
-//Draw Hearts
-drawHearts()
-
-
 
 //DRAW Clouds
 if(rainCount<300&&rainCount>30){
@@ -370,14 +363,11 @@ drawClouds(cloudPosx+800,cloudPosy-30,55,map(rainCount,300,50,110,0))
 drawClouds(cloudPosx+1000,cloudPosy-50,70,map(rainCount,300,50,100,0))
 drawClouds(cloudPosx+500,cloudPosy-120,35,map(rainCount,300,50,90,0))
 
-
-
-
 pop()
 }
 
 //draw lights
-if(rainCount<100){
+if(rainCount<100&&millis()<170000){
 push()
 noStroke()
 fill(239, 245, 171,map(vocal,0,100,2,30))
@@ -397,7 +387,17 @@ drawFire(1150,700,map(vocal,20,70,120,80))
 
 }
 }
+if(millis()>160000){
+//Draw final scene
+let x=16*pow(sin(t),3)
+let y=13*cos(t)-5*cos(2*t)-2*cos(3*t)-cos(4*t)
+let scaleFactor = 15;
+let posX = width / 2 + x * scaleFactor;
+let posY = height / 2 - y * scaleFactor
+drawButterflyHeart(posX,posY,t)
+drawButterflyHeart(posX,posY,-t)
 
+t=t+0.02}
 
 }
 
@@ -493,17 +493,34 @@ pop()
 }
 
 //final scene
-function drawButterflyHearts(x,y,size,angle){
-  push();
-  translate(x, y);
-  rotate(sin(frameCount * 0.2) * 0.3); // flying
-  noStroke();
-  fill(200, 100, 200, 180);
-  ellipse(-10, 0, 30, 50);
-  ellipse(10, 0, 30, 50);
-  fill(50);
-  ellipse(0, 0, 10, 40); // 
-  pop();
+function drawButterflyHeart(x,y,size,angle){
+  push()
+  colorMode(HSB)
+  translate(x, y)
+  rotate(sin(frameCount * 0.2) * 0.3)// flying
+  noStroke()
+  fill(map(noise(),0,1,0,360), 40, 100, 180)
+  ellipse(0, 0, size/2, size)
+  ellipse(0, 0, size/2, size)
+  fill(map(noise(),0,1,0,360), 40, 100, 180)
+  pop()
+  push()
+stroke(map(noise(),0,1,0,360), 40, 100)
+strokeWeight(2)
+point(x+size/4,y-size/1.5)
+point(x+size/2,y-size/1.8)
+
+  //butterfly head and eyes
+beginShape()
+vertex(x+size/4-2,y-size/4)
+quadraticVertex(x+13,y-size/2.2,x+size/4,y-size/1.5)
+
+endShape()
+beginShape()
+vertex(x+size/4-2,y-size/4)
+quadraticVertex(x+13,y-size/2.2,x+size/2,y-size/1.8)
+endShape()
+pop()
 }
 
 

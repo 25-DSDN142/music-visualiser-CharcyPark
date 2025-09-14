@@ -27,8 +27,8 @@ let sat4
 let sat5
 let bri
 let sat
-
-
+let signSize=0
+let t=0
 
 function draw_one_frame(words, vocal, drum, bass, other, counter) {
   //varibles
@@ -224,7 +224,7 @@ if (millis()>3000&&millis()<22000){
         pop()}
         
 }
-if(millis()>22000&&millis()<150000){
+if(millis()>22000&&millis()<156500){
         hue1=map(bass,0,100,9,24)
         bri=map(drum,0,100,80,100)
         sat=map(vocal,0,100,50,100)
@@ -289,16 +289,16 @@ let d3=18
 let d4=25
 butterflyDis=[d1,d2,d3,d4]
 let randomDis=random(butterflyDis)
-if (millis()>23000&&millis()<150000){
+if (millis()>23000&&millis()<155000){
   push()
 drawButterfly(map(bass,0,100,10,300),(randomDis*3+450),55,map(vocal,0,100,0,160))
-drawButterfly(map(bass,0,100,10,300),randomDis*5,55,map(vocal,0,100,120,180))
+drawButterfly(map(bass,0,100,10,300),randomDis*5,55,map(vocal,0,100,160,260))
        push()
        angleMode(DEGREES)
        translate(midx,midy)
        var r=80
        let angleButterfly=map(vocal,10,50,0,180)
-      drawButterfly((r+40)*sin(angleButterfly),(r+40)*cos(-angleButterfly),map(drum,0,60,35,55),map(vocal,0,100,160,260))
+      drawButterfly((r+40)*sin(angleButterfly),(r+40)*cos(-angleButterfly),map(drum,0,60,35,55),map(vocal,0,100,60,0))
       pop()
       push()
       translate(midx,midy)
@@ -318,7 +318,7 @@ drawButterfly(map(bass,0,100,10,300),randomDis*5,55,map(vocal,0,100,120,180))
        pop()
       push()
       translate(1150,170)
-      drawButterfly((r+30)*sin(-angleButterfly),r*cos(angleButterfly),50,map(vocal,0,100,0,50))
+      drawButterfly((r+30)*sin(-angleButterfly),r*cos(angleButterfly),50,map(vocal,30,70,0,50))
        pop()
   pop()
 
@@ -357,7 +357,7 @@ pop()
 }
 
 //draw lights
-if(rainCount<100&&millis()<150000){
+if(rainCount<100&&millis()<155000){
 push()
 noStroke()
 fill(239, 245, 171,map(vocal,0,100,2,30))
@@ -377,11 +377,48 @@ drawFire(1150,700,map(vocal,20,70,120,80))
 
 }
 }
-if(millis()>=150000){
+if(millis()>=155000){
+  let x1=map(signSize,0,104,midx-150,midx)
+  let x2=map(signSize,0,104,midx+50,midx)
+  let x3=map(signSize,0,104,midx-100,midx)
+  let x4=map(signSize,0,105,midx+100,midx)
+  let x5=map(signSize,0,105,midx-60,midx)
+  let y1=map(signSize,0,105,midy-150,midy)
+  let y2=map(signSize,0,104,midy+150,midy)
+  let y3=map(signSize,0,105,midy-50,midy)
+  let y4=map(signSize,0,105,midy+160,midy)
+  let y5=map(signSize,0,104,midy+50,midy)
+  push()
+  stroke(255, 252, 171,105)
   textSize(wordSize)
   textFont('Papyrus') 
-  //Draw Hearts
-drawHearts()
+  text(words,width/2+300,height/2)
+  if(signSize<105){
+    push()
+    textSize(signSize)
+    signSize+=0.3
+  text('sin( )',x1,y1)
+  text('cos( )',x2,y5)
+  text('π',x3,y2)
+  text('√  ',x2,y3)
+  text('(a,b)',x5,y3)
+  text('(Σ)',x4,y4) 
+  text('∑ i=1',x3,y5)
+    pop()
+pop()}else {
+  //Draw Hearts, reference from google
+  push()
+  angleMode(RADIANS)
+  let x = 16 * pow(sin(t), 3)
+  let y = 13 * cos(t) - 5 * cos(2 * t) - 2 * cos(3 * t) - cos(4 * t)
+  let scaleFactor = 15;
+  let posX = width / 2 + x * scaleFactor;
+  let posY = height / 2 - y * scaleFactor
+  t+=0.05
+  drawHearts(posX, posY, t)
+pop()
+  drawFlowers(midx,midy,map(vocal,30,100,50,180),map(drum,0,100,4,10))
+  drawFire(midx-400,midy+84,map(vocal,80,0,105,320))}
 }
 }
 function drawButterfly(butterflyPosx,butterflyPosy,butterflySize,hue){
@@ -435,12 +472,11 @@ endShape()
 
 }
 
-
 //draw flowers
 function drawFlowers(flowerPosx,flowerPosy,flowerSize,petalNum){
 let flowerColor=[color(211, 148, 227,100),//pink
-  color(197, 177, 252,90),//purple
-  color(247, 123, 104,80),//red
+  color(197, 177, 252,60),//purple
+  color(247, 123, 104,60),//red
   color(238, 250, 170,60)//yellow
 ]
 let t=(frameCount*0.002)%1
@@ -511,4 +547,28 @@ function drawFire(firePosx,firePosy,fireSize){
 
   endShape()}
   // draw hearts
-function drawHearts(){}
+function drawHearts(x, y, angle){
+  push();
+  translate(x, y);
+  noStroke();
+  fill(250, 248, 135, 105);
+  ellipse(0, 0, 25, 50);
+  rotate(sin(frameCount * 0.02) * 0.3)//waving
+  rotate(65)
+  ellipse(0, 0, 25, 50);
+  pop()
+push()
+stroke(250, 248, 135,84)
+strokeWeight(2)
+point(x-50/4,y-50/1.5)
+point(x-50/2,y-50/1.8)
+//butterfly head and eyes
+beginShape()
+vertex(x-50/4+2,y-50/4)
+quadraticVertex(x-13,y-50/2.2,x-50/4,y-50/1.5)
+endShape()
+beginShape()
+vertex(x-50/4+2,y-50/4)
+quadraticVertex(x-13,y-50/2.2,x-50/2,y-50/1.8)
+endShape()
+pop()}

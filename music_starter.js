@@ -119,8 +119,6 @@ let pointStar2=linePos+20
 let pointStar3=linePos+40
 let pointStar4=linePos+60
 let pointStar5=linePos+80
-
-
 hue1=map(bass,10,100,9,24)
 hue2=map(bass,10,100,40,100)
 hue3=map(bass,10,100,220,250)
@@ -133,10 +131,8 @@ sat4=map(pointStarx4,0,1280,0,100)
 sat5=map(pointStarx5,0,1280,0,100)
 bri=map(vocal,0,100,80,100)
 if (millis()>3000&&millis()<22000){
-  
   push()
   colorMode(HSB)
-  
   fill(hue1,sat1,bri)
   noStroke()
   ellipse(pointStarx1,pointStar1,10,10)
@@ -228,7 +224,7 @@ if (millis()>3000&&millis()<22000){
         pop()}
         
 }
-if(millis()>22000){
+if(millis()>22000&&millis()<150000){
         hue1=map(bass,0,100,9,24)
         bri=map(drum,0,100,80,100)
         sat=map(vocal,0,100,50,100)
@@ -283,16 +279,8 @@ if(millis()>22000){
         vertex(0,linePos+80)
         quadraticVertex(controlPointx,linePos+80-controlPointy,1280,linePos+80)
         endShape()
-
-
-
-
         pop()
-        
-
-
 }
-
 
 //draw butterfly and light
 let d1=10
@@ -344,13 +332,6 @@ drawFlowers(1150,600,map(vocal,30,100,50,180),map(drum,0,100,8,20))
 // drawFlowers(650,600,map(vocal,30,100,50,280),map(vocal,0,100,8,20))
 pop()
 
-
-
-//Draw Hearts
-drawHearts()
-
-
-
 //DRAW Clouds
 if(rainCount<300&&rainCount>30){
 push()
@@ -396,14 +377,14 @@ drawFire(1150,700,map(vocal,20,70,120,80))
 
 }
 }
-
-
+if(millis()>=150000){
+  textSize(wordSize)
+  textFont('Papyrus') 
+  //Draw Hearts
+drawHearts()
 }
-
-
+}
 function drawButterfly(butterflyPosx,butterflyPosy,butterflySize,hue){
-
-
 push()
 colorMode(HSB)
 noStroke()
@@ -482,11 +463,6 @@ for(i=0;i<petalNum;i++){
 pop()
 
 }
-
-// draw hearts
-function drawHearts(){}
-
-
 function drawClouds(cloudPosx,cloudPosy,cloudSize,Transp){
     push()
     colorMode(HSB)
@@ -534,3 +510,5 @@ function drawFire(firePosx,firePosy,fireSize){
 
 
   endShape()}
+  // draw hearts
+function drawHearts(){}

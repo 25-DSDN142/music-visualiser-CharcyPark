@@ -392,7 +392,7 @@ if(millis()>=155000){
   stroke(255, 252, 171,105)
   textSize(wordSize)
   textFont('Papyrus') 
-  text(words,width/2+300,height/2)
+  text(words,width/2+275,height/2)
   if(signSize<105){
     push()
     textSize(signSize)

@@ -417,7 +417,7 @@ pop()}else {
   t+=0.05
   drawHearts(posX, posY, t)
 pop()
-  drawFlowers(midx,midy,map(vocal,30,100,50,180),map(drum,0,100,4,10))
+  drawFlowers(midx,midy,map(vocal,30,100,50,180),map(drum,0,100,4,13))
   drawFire(midx-400,midy+84,map(vocal,80,0,105,320))}
 }
 }
